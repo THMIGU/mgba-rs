@@ -129,7 +129,7 @@ unsafe extern "C" fn noop_log(
     _category: std::os::raw::c_int,
     _level: mgba_sys::mLogLevel,
     _format: *const std::os::raw::c_char,
-    _args: mgba_sys::va_list,
+    _args: *mut mgba_sys::__va_list_tag,
 ) {
 }
 
