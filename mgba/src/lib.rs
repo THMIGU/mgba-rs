@@ -231,29 +231,6 @@ impl Core {
         Ok(())
     }
 
-    pub fn set_bios(&mut self, path: &Path) -> Result<(), CoreError> {
-        let path = path.to_str().ok_or(CoreError::InvalidPath)?;
-        let path = CString::new(path).map_err(|_| CoreError::InvalidPath)?;
-    
-        unsafe {
-            let core = self.raw;
-    
-            mgba_sys::mCoreConfigSetValue(
-                &mut (*core).config,
-                c"bios".as_ptr(),
-                path.as_ptr(),
-            );
-            mgba_sys::mCoreConfigSetValue(
-                &mut (*core).config,
-                c"useBios".as_ptr(),
-                c"1".as_ptr(),
-            );
-            mgba_sys::mCoreLoadConfig(core);
-        }
-    
-        Ok(())
-    }
-
     /// Returns `true` if a ROM has been successfully loaded.
     pub fn is_loaded(&self) -> bool {
         self.loaded
